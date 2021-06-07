@@ -118,6 +118,23 @@ def sendParty(channel : "lunchpartytest", partyMembers, partyNumber:int):
         params = params
     )
 
+def getConversationHistory(channel):
+    params = {'channel': channel}
+    res = slack_web_client.api_call(
+        api_method='conversations.history',
+        params=params
+    )
+    print(res)
+
+
+def deleteChat(channel : "lunchpartytest", ts : str):
+    res = slack_web_client.chat_delete(
+        channel=channel,
+        ts=ts
+    )
+
+    print(res)
+
 def sendJoinParty(channel : "lunchpartytest"):
     blocks = [
         {
@@ -134,11 +151,10 @@ def sendJoinParty(channel : "lunchpartytest"):
                     "type": "button",
                     "text": {
                         "type": "plain_text",
-
                         "text": "같이먹어요"
                     },
                     "style": "primary",
-                    "value": "click_me_123"
+                    "value": "join"
                 },
                 {
                     "type": "button",
@@ -148,7 +164,7 @@ def sendJoinParty(channel : "lunchpartytest"):
                         "text": "따점"
                     },
                     "style": "danger",
-                    "value": "click_me_123"
+                    "value": "absent"
                 }
             ]
         }
@@ -185,12 +201,15 @@ def test():
     for i, party in enumerate(partyList, 1):
         sendParty(channelName, party, i)
 
+# getConversationHistory("lunchpartytest")
 
 if __name__ == '__main__':
-    filterList = getDefaultFilterList()
-    sendJoinParty("lunchpartyprivate")
-# test()
-# getAllChanellList()
+    # getConversationHistory("G015Q3N2RQS")
+    # deleteChat("C0219J2E9GB",'1621110113.001900')
+    # filterList = getDefaultFilterList()
+    # sendJoinParty("lunchpartyprivate")
+    test()
+    # getAllChanellList()
 
 #TODO pia.no @ 알림? filter 어떻게 구현할지? 메서지 버튼 + 디비 사용? 인메모리?
 # 11시 20분쯤 참가 하는 메세지? 12시에 파티 결정 메세지

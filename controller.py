@@ -23,4 +23,12 @@ def join2():
 @app.route("/party", methods=['GET'])
 def getParty():
     return jsonify(test.getParty())
+
+@app.route("slackAction")
+def action():
+    slackData = request.json
+    if slackData['user']:
+        return
+
+
 app.run()
