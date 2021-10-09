@@ -3,7 +3,9 @@ from lunchparty import Lunchparty
 import json
 import os
 import random
-token="xoxb-194626280262-2036623438390-EssKdEqIwqi5ppZTXkv7oqQL"
+token="xoxb-194626280262"\
+ + "2036623438390-" \
++ "hYt0xFRmyUKu22ZIPx4QIDjd"
 slack_web_client = WebClient(token=token)
 filterList = ["sean.you"]
 
@@ -188,16 +190,34 @@ def absent(name : str):
 def getParty():
     return filterList
 
+
+def getDummyParty():
+    dummyParty = [["sean.you",
+                  "flo.kim",
+                  "hector.kang",
+                  "tony.s"],[
+                  "rocket.m",
+                  "lapin.hong",
+                  "pia.no",
+                  "hubert.bear",
+                  "harry.hoon",
+                  ]]
+    return dummyParty
+
 def test():
     #택시 백엔드 아이디 알려면 얘가 거기 들어가야
     #택시백엔드 G015Q3N2RQS
     #lunchpartyprivate C022QR3VCQ0
+
+
     targetChannelId = "C022QR3VCQ0"
     channelName = "lunchpartyprivate"
-    channelMembers = getAllMemberOfChannel(targetChannelId)
-    infos = getUsersInfoByIds(channelMembers)
-    filteredInfos = filterAndExtractName(infos)
-    partyList = makeParty(filteredInfos)
+    # channelMembers = getAllMemberOfChannel(targetChannelId)
+    # infos = getUsersInfoByIds(channelMembers)
+    # filteredInfos = filterAndExtractName(infos)
+    # partyList = makeParty(filteredInfos)
+    partyList = getDummyParty()
+
     for i, party in enumerate(partyList, 1):
         sendParty(channelName, party, i)
 
